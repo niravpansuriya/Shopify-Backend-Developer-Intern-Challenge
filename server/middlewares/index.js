@@ -1,5 +1,5 @@
 // to validate data in api
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 
 //------------------------------------------------------------------------
 
