@@ -30,6 +30,33 @@ const getItems = async (req, res, next) => {
 };
 
 /**
+ * This controller gives details about single item
+ */
+const getItem = async (req, res, next) => {
+	try {
+		// get item id
+		const { item_id } = req.params;
+
+		// get item from database
+		const item = await Item.findOne({ item_id });
+
+		// if item not found
+		if (!item) {
+			return res
+				.status(400)
+				.send({ status: 400, error: "item not found" });
+		}
+		// send item
+		return res.status(200).send({ status: 200, data: item });
+	} catch (error) {
+		// use any logger
+		console.log("There is error in getItem api", error);
+
+		// default error handler
+		next(error);
+	}
+};
+/**
  *
  * This controller creates item
  */
@@ -129,6 +156,7 @@ const exportCSV = async (req, res, next) => {
 // export controllers
 module.exports = {
 	getItems,
+	getItem,
 	createItem,
 	deleteItem,
 	exportCSV,

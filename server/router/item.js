@@ -4,7 +4,13 @@ const express = require("express");
 const router = express.Router();
 
 // controllers for item
-const { getItems, createItem, deleteItem, exportCSV } = require("../controllers/item");
+const {
+	getItems,
+	createItem,
+	deleteItem,
+	exportCSV,
+	getItem,
+} = require("../controllers/item");
 
 // item validator
 const itemValidator = require("../validators/item");
@@ -14,6 +20,9 @@ const itemValidator = require("../validators/item");
 // get all items
 router.get("/list", getItems);
 
+// get specific item
+router.get("/:item_id", getItem);
+
 // create a item
 router.post("/", itemValidator.crateItem, createItem);
 
@@ -21,7 +30,7 @@ router.post("/", itemValidator.crateItem, createItem);
 router.delete("/", itemValidator.deleteItem, deleteItem);
 
 // export data as csv
-router.get("/csv",exportCSV)
+router.get("/csv", exportCSV);
 //------------------------------------------------------------------------
 
 // export router
