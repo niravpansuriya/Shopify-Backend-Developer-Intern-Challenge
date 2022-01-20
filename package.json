@@ -1,0 +1,28 @@
+{
+  "name": "shopify-backend-challenge",
+  "version": "1.0.0",
+  "description": "This is the backend challenge for Shopify summer internship",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niravpansuriya/Shopify-Backend-Developer-Intern-Challenge.git"
+  },
+  "author": "Nirav C. Pansuriya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niravpansuriya/Shopify-Backend-Developer-Intern-Challenge/issues"
+  },
+  "homepage": "https://github.com/niravpansuriya/Shopify-Backend-Developer-Intern-Challenge#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "json2csv": "^5.0.6",
+    "mongoose": "^6.1.7"
+  }
+}
