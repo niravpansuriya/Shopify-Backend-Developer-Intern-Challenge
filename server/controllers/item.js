@@ -131,7 +131,14 @@ const deleteItem = async (req, res, next) => {
 		const { item_id } = req.body;
 
 		// delete item in database
-		await Item.deleteOne({ item_id });
+		const dbRes = await Item.deleteOne({ item_id });
+
+		// if no items are deleted
+		if (dbRes.deletedCount === 0) {
+			return res
+				.status(400)
+				.send({ status: 400, error: "Some error in delete the item" });
+		}
 
 		return res
 			.status(200)
