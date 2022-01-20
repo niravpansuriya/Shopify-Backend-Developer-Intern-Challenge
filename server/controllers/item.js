@@ -152,6 +152,13 @@ const exportCSV = async (req, res, next) => {
 		// get all items from database
 		const items = await Item.find().select(["-_id"]).lean();
 
+		// if there is no items
+		if (!items.length) {
+			return res
+				.status(400)
+				.send({ status: 400, error: "Inventory is empty" });
+		}
+
 		// convert to csv
 		var csv = json2csv(items);
 
