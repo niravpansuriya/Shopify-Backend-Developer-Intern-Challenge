@@ -157,7 +157,7 @@ const deleteItem = async (req, res, next) => {
 const exportCSV = async (req, res, next) => {
 	try {
 		// get all items from database
-		const items = await Item.find().select(["-_id"]).lean();
+		const items = await Item.find().select(["-_id","-__v"]).lean();
 
 		// if there is no items
 		if (!items.length) {
