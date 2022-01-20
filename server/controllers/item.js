@@ -35,7 +35,7 @@ const getItem = async (req, res, next) => {
 		const { item_id } = req.params;
 
 		// get item from database
-		const item = await Item.findOne({ item_id });
+		const item = await Item.findOne({ item_id }).select(["-_id"]);
 
 		// if item not found
 		if (!item) {
