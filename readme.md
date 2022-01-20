@@ -1,6 +1,6 @@
 # Shopify Backend Challenge
 ## Instructions
-- This project requires Node.js to run. [Install Node.js] (https://www.pluralsight.com/guides/getting-started-with-nodejs)
+- This project requires Node.js to run. [Install Node.js](https://www.pluralsight.com/guides/getting-started-with-nodejs)
 - Clone the project.
 - Open terminal 
 - Create a .env file at the root and paste this content.
