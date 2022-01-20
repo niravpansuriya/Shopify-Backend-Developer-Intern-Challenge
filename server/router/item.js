@@ -21,7 +21,7 @@ const itemValidator = require("../validators/item");
 router.get("/list", getItems);
 
 // get specific item
-router.get("/:item_id", getItem);
+router.get("/details/:item_id", getItem);
 
 // create a item
 router.post("/create", itemValidator.crateItem, createItem);
@@ -30,7 +30,7 @@ router.post("/create", itemValidator.crateItem, createItem);
 router.delete("/delete", itemValidator.deleteItem, deleteItem);
 
 // export data as csv
-router.get("/csv", exportCSV);
+router.get("/export", exportCSV);
 //------------------------------------------------------------------------
 
 // export router
