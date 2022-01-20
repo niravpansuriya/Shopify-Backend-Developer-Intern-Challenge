@@ -34,7 +34,7 @@ module.exports = {
 		body("height")
 			.optional()
 			.custom((height) => {
-				if (height < 0) return new Error("height should be positive");
+				if (height < 0) throw new Error("height should be positive");
 				return true;
 			}),
 
@@ -43,7 +43,52 @@ module.exports = {
 		body("weight")
 			.optional()
 			.custom((weight) => {
-				if (weight < 0) return new Error("weight should be positive");
+				if (weight < 0) throw new Error("weight should be positive");
+				return true;
+			}),
+	],
+
+	// validator for update item api
+	updateItem: [
+		// check item_id exists
+		body("item_id", "item_id is required").exists(),
+		body("item_id").custom(async (item_id) => {
+			// check if item id is in database
+			const item = await Item.findOne({ item_id }).lean();
+			if (!item) {
+				return Promise.reject("item not found");
+			}
+		}),
+
+		// check if name is not empty
+		body("name", "name can not be empty").optional().notEmpty(),
+
+		// check quantity is positive number and exists
+		body("quantity", "quantity should be number").optional().isNumeric(),
+		body("quantity")
+			.optional()
+			.custom((quantity) => {
+				if (quantity < 0) {
+					throw new Error("quantity should be positive");
+				}
+				return true;
+			}),
+
+		// check height is positive number
+		body("height", "height should be number").optional().isNumeric(),
+		body("height")
+			.optional()
+			.custom((height) => {
+				if (height < 0) throw new Error("height should be positive");
+				return true;
+			}),
+
+		// check weight is positive number
+		body("weight", "weight should be number").optional().isNumeric(),
+		body("weight")
+			.optional()
+			.custom((weight) => {
+				if (weight < 0) throw new Error("weight should be positive");
 				return true;
 			}),
 	],
@@ -53,7 +98,7 @@ module.exports = {
 		// check item_id exists
 		body("item_id", "item_id is required").exists(),
 		body("item_id").custom(async (item_id) => {
-			// check if item id already exists
+			// check if item is in database
 			const item = await Item.findOne({ item_id }).lean();
 			if (!item) {
 				return Promise.reject("item not found");

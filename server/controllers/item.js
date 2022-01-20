@@ -1,6 +1,3 @@
-// to validate data in api
-const { validationResult } = require("express-validator/check");
-
 // convert json to csv
 const json2csv = require("json2csv").parse;
 
@@ -56,21 +53,13 @@ const getItem = async (req, res, next) => {
 		next(error);
 	}
 };
+
 /**
  *
  * This controller creates item
  */
 const createItem = async (req, res, next) => {
 	try {
-		// data validation
-		const errors = validationResult(req);
-
-		if (!errors.isEmpty()) {
-			return res
-				.status(400)
-				.send({ status: 400, errors: errors.array() });
-		}
-
 		// get data
 		const { item_id, name, quantity, height, weight, color } = req.body;
 
@@ -84,6 +73,8 @@ const createItem = async (req, res, next) => {
 			color,
 		});
 
+		// if there will be any error during saving item in db,
+		// it will go inside catch, so it will be handled
 		await item.save();
 
 		return res
@@ -98,20 +89,44 @@ const createItem = async (req, res, next) => {
 };
 
 /**
+ * This controller updates item
+ */
+const updateItem = async (req, res, next) => {
+	try {
+		// get data
+		const { item_id, name, quantity, color, weight, height } = req.body;
+
+		// update in database
+		await Item.findOneAndUpdate(
+			{ item_id },
+			{
+				$set: {
+					name,
+					quantity,
+					color,
+					weight,
+					height,
+				},
+			},
+			{ runValidators: true }
+		);
+
+		return res
+			.status(200)
+			.send({ status: 200, message: "Update successful" });
+	} catch (error) {
+		console.log("There is some error in updateItem api", error);
+
+		// default error handler
+		next(error);
+	}
+};
+/**
  *
  * This controller deletes item
  */
 const deleteItem = async (req, res, next) => {
 	try {
-		// data validation
-		const errors = validationResult(req);
-
-		if (!errors.isEmpty()) {
-			return res
-				.status(400)
-				.send({ status: 400, errors: errors.array() });
-		}
-
 		// get data
 		const { item_id } = req.body;
 
@@ -158,6 +173,7 @@ module.exports = {
 	getItems,
 	getItem,
 	createItem,
+	updateItem,
 	deleteItem,
 	exportCSV,
 };
