@@ -24,10 +24,10 @@ router.get("/list", getItems);
 router.get("/:item_id", getItem);
 
 // create a item
-router.post("/", itemValidator.crateItem, createItem);
+router.post("/create", itemValidator.crateItem, createItem);
 
 // delete a item
-router.delete("/", itemValidator.deleteItem, deleteItem);
+router.delete("/delete", itemValidator.deleteItem, deleteItem);
 
 // export data as csv
 router.get("/csv", exportCSV);

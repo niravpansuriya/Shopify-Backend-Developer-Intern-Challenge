@@ -44,6 +44,7 @@ module.exports = {
 			.optional()
 			.custom((weight) => {
 				if (weight < 0) return new Error("weight should be positive");
+				return true;
 			}),
 	],
 
