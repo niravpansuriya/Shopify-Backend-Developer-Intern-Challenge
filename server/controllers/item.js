@@ -13,7 +13,7 @@ const Item = require("../models/Item");
 const getItems = async (req, res, next) => {
 	try {
 		// get all items from database
-		const items = await Item.find();
+		const items = await Item.find().select(["-_id"]);
 
 		// send items
 		return res.status(200).send({ status: 200, data: { items } });
